@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getProjectById } from '../../../data/projects';
+import SEO from '../../../../components/SEO';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -57,39 +58,16 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CreativeWork",
-            "name": project.title,
-            "description": project.fullDescription,
-            "creator": {
-              "@type": "Person",
-              "name": "Kaine",
-              "url": "https://kaine.dev"
-            },
-            "dateCreated": project.dateCreated,
-            "dateModified": project.dateUpdated,
-            "genre": project.category,
-            "keywords": project.technologies.join(", "),
-            "url": `https://kaine.dev/projects/${project.id}`,
-            "image": project.images.map(img => `https://kaine.dev${img}`),
-            "thumbnailUrl": `https://kaine.dev${project.thumbnailImage}`,
-            "workExample": project.links.live ? {
-              "@type": "WebSite",
-              "url": project.links.live
-            } : undefined,
-            "codeRepository": project.links.github,
-            "programmingLanguage": project.technologies.filter(tech => 
-              ['JavaScript', 'TypeScript', 'Python', 'Java', 'C#', 'C++', 'PHP', 'Ruby', 'Go', 'Rust'].includes(tech)
-            ),
-            "runtimePlatform": project.technologies.filter(tech => 
-              ['Node.js', 'React', 'Next.js', 'Vue.js', 'Angular', 'Express', 'Django', 'Flask'].includes(tech)
-            )
-          })
-        }}
+      <SEO
+        title={project.title}
+        description={project.fullDescription}
+        url={`/projects/${project.id}`}
+        image={project.thumbnailImage}
+        type="article"
+        project={project}
+        keywords={project.technologies}
+        publishedTime={project.dateCreated}
+        modifiedTime={project.dateUpdated}
       />
     <div className="min-h-screen bg-black">
       {/* Hero Section */}

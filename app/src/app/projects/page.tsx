@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { projects } from '../../data/projects';
+import SEO from '../../../components/SEO';
 
 export default function ProjectsPage() {
   const completedCount = projects.filter(p => p.status === 'completed').length;
@@ -36,35 +37,12 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Projects Portfolio",
-            "description": "A showcase of creative projects and digital experiences by Kaine",
-            "url": "https://kaine.dev/projects",
-            "mainEntity": {
-              "@type": "ItemList",
-              "numberOfItems": projects.length,
-              "itemListElement": projects.map((project, index) => ({
-                "@type": "CreativeWork",
-                "position": index + 1,
-                "name": project.title,
-                "description": project.description,
-                "creator": {
-                  "@type": "Person",
-                  "name": "Kaine"
-                },
-                "dateCreated": project.dateCreated,
-                "genre": project.category,
-                "keywords": project.technologies.join(", "),
-                "url": `https://kaine.dev/projects/${project.id}`
-              }))
-            }
-          })
-        }}
+      <SEO
+        title="Projects Portfolio"
+        description="A showcase of creative projects and digital experiences by Kaine. Explore web development projects, game modifications, and innovative digital solutions."
+        url="/projects"
+        projects={projects}
+        keywords={["projects", "portfolio", "web development", "game development", "creative projects", "digital experiences", "full stack developer"]}
       />
     <div className="min-h-screen bg-black py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

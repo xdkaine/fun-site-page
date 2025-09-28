@@ -15,12 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kaine.dev'), // Replace with your actual domain
+  metadataBase: new URL('https://showcase.republicofgaming.xyz'), // Replace with your actual domain
   title: {
-    default: "Kaine's Project Showcase | Developer Portfolio",
+    default: "Kaine's Project Showcase",
     template: "%s | Kaine's Portfolio"
   },
-  description: "Explore Kaine's creative projects and digital experiences. Full-stack developer specializing in modern web technologies, game development, and innovative solutions.",
+  description: "Explore my creative projects and digital experiences. Full-stack developer specializing in modern web technologies, game development, and innovative solutions.",
   keywords: ['Kaine', 'Developer', 'Portfolio', 'Projects', 'Web Development', 'Full Stack', 'Creative', 'Digital'],
   authors: [{ name: 'Kaine' }],
   creator: 'Kaine',
@@ -39,10 +39,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://kaine.dev',
+    url: 'https://showcase.republicofgaming.xyz',
     siteName: "Kaine's Project Showcase",
-    title: "Kaine's Project Showcase | Developer Portfolio",
-    description: "Explore Kaine's creative projects and digital experiences. Full-stack developer specializing in modern web technologies.",
+    title: "Kaine's Project Showcase",
+    description: "Explore my creative projects and digital experiences. Full-stack developer specializing in modern web technologies.",
     images: [
       {
         url: '/og-image.png', // You'll need to add this image
@@ -54,8 +54,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Kaine's Project Showcase | Developer Portfolio",
-    description: "Explore Kaine's creative projects and digital experiences. Full-stack developer specializing in modern web technologies.",
+    title: "Kaine's Project Showcase",
+    description: "Explore my creative projects and digital experiences. Full-stack developer specializing in modern web technologies.",
     images: ['/og-image.png'], // Same image as OG
     creator: '@kaine', // Replace with actual Twitter handle
   },
@@ -84,12 +84,10 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Kaine",
-              "jobTitle": "Full Stack Developer",
-              "url": "https://kaine.dev",
+              "jobTitle": "Developer",
+              "url": "https://showcase.republicofgaming.xyz",
               "sameAs": [
                 "https://github.com/xdkaine", // Replace with actual URLs
-                "https://twitter.com/kaine",
-                "https://linkedin.com/in/kaine"
               ],
               "knowsAbout": [
                 "Web Development",

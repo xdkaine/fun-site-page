@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { projects } from "../data/projects";
+import SEO from "../../components/SEO";
 
 const greetings = [
   "Hello", // English
@@ -95,46 +96,11 @@ export default function Home() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Kaine's Project Showcase",
-            "url": "https://kaine.dev",
-            "description": "Developer portfolio showcasing creative projects and digital experiences by Kaine",
-            "author": {
-              "@type": "Person",
-              "name": "Kaine",
-              "jobTitle": "Full Stack Developer",
-              "url": "https://kaine.dev",
-              "sameAs": [
-                "https://github.com/xdkaine",
-                "https://twitter.com/kaine",
-                "https://linkedin.com/in/kaine"
-              ]
-            },
-            "mainEntity": {
-              "@type": "ItemList",
-              "name": "Featured Projects",
-              "numberOfItems": featuredProjects.length,
-              "itemListElement": featuredProjects.map((project, index) => ({
-                "@type": "CreativeWork",
-                "position": index + 1,
-                "name": project.title,
-                "description": project.description,
-                "url": `https://kaine.dev/projects/${project.id}`,
-                "creator": {
-                  "@type": "Person",
-                  "name": "Kaine"
-                },
-                "genre": project.category,
-                "keywords": project.technologies.join(", ")
-              }))
-            }
-          })
-        }}
+      <SEO
+        title="Home"
+        description="Developer portfolio showcasing creative projects and digital experiences by Kaine. Explore web development, game modifications, and innovative digital solutions."
+        projects={featuredProjects}
+        keywords={["full stack developer", "web development", "portfolio", "react", "next.js", "typescript", "game development", "Kaine", "creative projects"]}
       />
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
