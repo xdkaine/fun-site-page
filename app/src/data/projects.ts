@@ -36,6 +36,11 @@ export const projects: Project[] = [
       "/img/projects/rog/3.png",
       "/img/projects/rog/4.png",
       "/img/projects/rog/5.png",
+      "/img/projects/rog/6.png",  
+      "/img/projects/rog/7.png",
+      "/img/projects/rog/8.png",
+      "/img/projects/rog/9.png",
+      "/img/projects/rog/10.png",
       "/img/projects/rog/gmod.webp"
       
     ],

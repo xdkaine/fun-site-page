@@ -20,10 +20,15 @@ const greetings = [
   "नमस्ते", // Hindi
 ];
 
+const names = ["Kaine", "Rorky", "TT"];
+
 export default function Home() {
   const [currentGreeting, setCurrentGreeting] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
+  const [currentName, setCurrentName] = useState(0);
+  const [nameDisplayText, setNameDisplayText] = useState("");
+  const [isNameTyping, setIsNameTyping] = useState(true);
 
   useEffect(() => {
     const currentWord = greetings[currentGreeting];
@@ -55,6 +60,36 @@ export default function Home() {
     }
   }, [currentGreeting, displayText, isTyping]);
 
+  useEffect(() => {
+    const currentNameWord = names[currentName];
+
+    if (isNameTyping) {
+      if (nameDisplayText.length < currentNameWord.length) {
+        const nameTypingTimer = setTimeout(() => {
+          setNameDisplayText(currentNameWord.slice(0, nameDisplayText.length + 1));
+        }, 150);
+        return () => clearTimeout(nameTypingTimer);
+      } else {
+        // Finished typing, wait then start erasing
+        const nameWaitTimer = setTimeout(() => {
+          setIsNameTyping(false);
+        }, 2000);
+        return () => clearTimeout(nameWaitTimer);
+      }
+    } else {
+      if (nameDisplayText.length > 0) {
+        const nameErasingTimer = setTimeout(() => {
+          setNameDisplayText(nameDisplayText.slice(0, -1));
+        }, 75);
+        return () => clearTimeout(nameErasingTimer);
+      } else {
+        // Finished erasing, move to next name
+        setCurrentName((prev) => (prev + 1) % names.length);
+        setIsNameTyping(true);
+      }
+    }
+  }, [currentName, nameDisplayText, isNameTyping]);
+
   // Get featured projects (first 3)
   const featuredProjects = projects.slice(0, 3);
 
@@ -70,7 +105,7 @@ export default function Home() {
             </span>
           </div>
           <p className="text-lg md:text-xl mb-12 text-gray-200 max-w-2xl mx-auto animate-slide-left animate-delay-300">
-            I&apos;m Kaine, a creative developer passionate about building innovative digital experiences.
+            I&apos;m <span className="text-white font-semibold">{nameDisplayText}<span className="animate-pulse">|</span></span>, a developer who likes to build for fun! :3
           </p>
           <div className="flex justify-center items-center animate-slide-right animate-delay-500">
             <Link
