@@ -94,6 +94,48 @@ export default function Home() {
   const featuredProjects = projects.slice(0, 3);
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Kaine's Project Showcase",
+            "url": "https://kaine.dev",
+            "description": "Developer portfolio showcasing creative projects and digital experiences by Kaine",
+            "author": {
+              "@type": "Person",
+              "name": "Kaine",
+              "jobTitle": "Full Stack Developer",
+              "url": "https://kaine.dev",
+              "sameAs": [
+                "https://github.com/xdkaine",
+                "https://twitter.com/kaine",
+                "https://linkedin.com/in/kaine"
+              ]
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "Featured Projects",
+              "numberOfItems": featuredProjects.length,
+              "itemListElement": featuredProjects.map((project, index) => ({
+                "@type": "CreativeWork",
+                "position": index + 1,
+                "name": project.title,
+                "description": project.description,
+                "url": `https://kaine.dev/projects/${project.id}`,
+                "creator": {
+                  "@type": "Person",
+                  "name": "Kaine"
+                },
+                "genre": project.category,
+                "keywords": project.technologies.join(", ")
+              }))
+            }
+          })
+        }}
+      />
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
       <div className="min-h-[calc(100vh-200px)] flex flex-col items-center justify-center px-4 py-12">
@@ -142,12 +184,22 @@ export default function Home() {
                 <div className="relative h-48 bg-black">
                   <Image
                     src={project.thumbnailImage}
-                    alt={project.title}
+                    alt={`${project.title} - ${project.category} project featured on homepage`}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1 bg-gray-900 text-white text-xs font-medium">
+                    <span className={`px-3 py-1 text-xs font-medium ${
+                      project.status === 'completed' ? 'bg-green-500 text-black' : 
+                      project.status === 'in-progress' ? 'bg-yellow-500 text-black' : 
+                      project.status === 'planned' ? 'bg-blue-900 text-white' : 
+                      'bg-gray-300 text-black'
+                    }`}>
                       {project.status === 'completed' ? 'Live' : project.status === 'in-progress' ? 'WIP' : 'Soon'}
                     </span>
                   </div>
@@ -203,5 +255,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }

@@ -56,6 +56,41 @@ export default function ProjectDetailPage({ params }: PageProps) {
   };
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "name": project.title,
+            "description": project.fullDescription,
+            "creator": {
+              "@type": "Person",
+              "name": "Kaine",
+              "url": "https://kaine.dev"
+            },
+            "dateCreated": project.dateCreated,
+            "dateModified": project.dateUpdated,
+            "genre": project.category,
+            "keywords": project.technologies.join(", "),
+            "url": `https://kaine.dev/projects/${project.id}`,
+            "image": project.images.map(img => `https://kaine.dev${img}`),
+            "thumbnailUrl": `https://kaine.dev${project.thumbnailImage}`,
+            "workExample": project.links.live ? {
+              "@type": "WebSite",
+              "url": project.links.live
+            } : undefined,
+            "codeRepository": project.links.github,
+            "programmingLanguage": project.technologies.filter(tech => 
+              ['JavaScript', 'TypeScript', 'Python', 'Java', 'C#', 'C++', 'PHP', 'Ruby', 'Go', 'Rust'].includes(tech)
+            ),
+            "runtimePlatform": project.technologies.filter(tech => 
+              ['Node.js', 'React', 'Next.js', 'Vue.js', 'Angular', 'Express', 'Django', 'Flask'].includes(tech)
+            )
+          })
+        }}
+      />
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
       <div className="bg-black border-b border-gray-800">
@@ -75,7 +110,12 @@ export default function ProjectDetailPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div className="animate-slide-left">
               <div className="flex items-center gap-4 mb-4">
-                <span className="px-3 py-1 text-sm font-medium bg-gray-900 text-white rounded">
+                <span className={`px-3 py-1 text-sm font-medium rounded ${
+                  project.status === 'completed' ? 'bg-green-500 text-black' : 
+                  project.status === 'in-progress' ? 'bg-yellow-500 text-black' : 
+                  project.status === 'planned' ? 'bg-blue-900 text-white' : 
+                  'bg-gray-300 text-black'
+                }`}>
                   {getStatusText(project.status)}
                 </span>
                 <span className="text-gray-200 font-medium">
@@ -152,10 +192,15 @@ export default function ProjectDetailPage({ params }: PageProps) {
               <div className="relative bg-black rounded-lg overflow-hidden aspect-video hover:scale-105 transition-transform duration-500 border border-gray-800">
                 <Image
                   src={project.images[currentImageIndex]}
-                  alt={`${project.title} - Image ${currentImageIndex + 1}`}
+                  alt={`${project.title} - Image ${currentImageIndex + 1} - ${project.description}`}
                   fill
                   className="object-cover cursor-pointer"
                   onClick={() => setIsImageExpanded(true)}
+                  priority={currentImageIndex === 0}
+                  loading={currentImageIndex === 0 ? "eager" : "lazy"}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
                 />
                 
                 {project.images.length > 1 && (
@@ -195,10 +240,13 @@ export default function ProjectDetailPage({ params }: PageProps) {
                     >
                       <Image
                         src={image}
-                        alt={`Thumbnail ${index + 1}`}
+                        alt={`${project.title} thumbnail ${index + 1}`}
                         width={64}
                         height={64}
                         className="object-cover w-full h-full"
+                        loading="lazy"
+                        placeholder="blur"
+                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                       />
                     </button>
                   ))}
@@ -330,10 +378,14 @@ export default function ProjectDetailPage({ params }: PageProps) {
           >
             <Image
               src={project.images[currentImageIndex]}
-              alt={`${project.title} - Expanded Image`}
+              alt={`${project.title} - Expanded view of image ${currentImageIndex + 1}`}
               width={1920}
               height={1080}
               className="object-contain max-w-full max-h-full w-auto h-auto rounded-lg shadow-2xl"
+              priority
+              loading="eager"
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
             />
           </div>
           
@@ -387,5 +439,6 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </div>
       )}
     </div>
+    </>
   );
 }

@@ -11,11 +11,11 @@ export default function ProjectsPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'bg-black text-white dark:bg-white dark:text-black';
+        return 'bg-green-500 text-black';
       case 'in-progress':
-        return 'bg-gray-600 text-white dark:bg-gray-400 dark:text-black';
+        return 'bg-yellow-500 text-black';
       case 'planned':
-        return 'bg-gray-400 text-black dark:bg-gray-600 dark:text-white';
+        return 'bg-blue-900 text-white';
       default:
         return 'bg-gray-300 text-black dark:bg-gray-700 dark:text-white';
     }
@@ -35,6 +35,37 @@ export default function ProjectsPage() {
   };
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Projects Portfolio",
+            "description": "A showcase of creative projects and digital experiences by Kaine",
+            "url": "https://kaine.dev/projects",
+            "mainEntity": {
+              "@type": "ItemList",
+              "numberOfItems": projects.length,
+              "itemListElement": projects.map((project, index) => ({
+                "@type": "CreativeWork",
+                "position": index + 1,
+                "name": project.title,
+                "description": project.description,
+                "creator": {
+                  "@type": "Person",
+                  "name": "Kaine"
+                },
+                "dateCreated": project.dateCreated,
+                "genre": project.category,
+                "keywords": project.technologies.join(", "),
+                "url": `https://kaine.dev/projects/${project.id}`
+              }))
+            }
+          })
+        }}
+      />
     <div className="min-h-screen bg-black py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -49,23 +80,49 @@ export default function ProjectsPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="card hover-lift animate-scale-in animate-delay-100">
-            <div className="text-3xl font-bold text-white mb-2">
-              {completedCount}
+          <div className="bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 rounded-xl p-6 hover:border-green-500/40 hover:from-green-500/20 hover:to-green-600/10 transition-all duration-300 animate-scale-in animate-delay-100 group">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-green-500/20 rounded-lg group-hover:bg-green-500/30 transition-colors duration-300">
+                <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="text-4xl font-bold text-green-400 group-hover:text-green-300 transition-colors duration-300">
+                {completedCount}
+              </div>
             </div>
-            <div className="text-gray-200">Completed Projects</div>
+            <div className="text-green-200 font-medium text-lg">Completed Projects</div>
+            <div className="text-green-300/70 text-sm mt-1">Ready to showcase</div>
           </div>
-          <div className="card hover-lift animate-scale-in animate-delay-200">
-            <div className="text-3xl font-bold text-white mb-2">
-              {inProgressCount}
+          
+          <div className="bg-gradient-to-br from-yellow-500/10 to-yellow-600/5 border border-yellow-500/20 rounded-xl p-6 hover:border-yellow-500/40 hover:from-yellow-500/20 hover:to-yellow-600/10 transition-all duration-300 animate-scale-in animate-delay-200 group">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-yellow-500/20 rounded-lg group-hover:bg-yellow-500/30 transition-colors duration-300">
+                <svg className="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="text-4xl font-bold text-yellow-400 group-hover:text-yellow-300 transition-colors duration-300">
+                {inProgressCount}
+              </div>
             </div>
-            <div className="text-gray-200">In Progress</div>
+            <div className="text-yellow-200 font-medium text-lg">In Progress</div>
+            <div className="text-yellow-300/70 text-sm mt-1">Currently building</div>
           </div>
-          <div className="card hover-lift animate-scale-in animate-delay-300">
-            <div className="text-3xl font-bold text-white mb-2">
-              {totalCount}
+          
+          <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-xl p-6 hover:border-blue-500/40 hover:from-blue-500/20 hover:to-blue-600/10 transition-all duration-300 animate-scale-in animate-delay-300 group">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-blue-500/20 rounded-lg group-hover:bg-blue-500/30 transition-colors duration-300">
+                <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </div>
+              <div className="text-4xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
+                {totalCount}
+              </div>
             </div>
-            <div className="text-gray-200">Total Projects</div>
+            <div className="text-blue-200 font-medium text-lg">Total Projects</div>
+            <div className="text-blue-300/70 text-sm mt-1">Complete portfolio</div>
           </div>
         </div>
 
@@ -81,12 +138,17 @@ export default function ProjectsPage() {
               <div className="relative h-48 bg-black">
                 <Image
                   src={project.thumbnailImage}
-                  alt={project.title}
+                  alt={`${project.title} - ${project.category} project thumbnail`}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading={index < 3 ? "eager" : "lazy"}
+                  priority={index < 3}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 bg-gray-900 text-white text-xs font-medium">
+                  <span className={`px-3 py-1 text-xs font-medium ${getStatusColor(project.status)}`}>
                     {getStatusText(project.status)}
                   </span>
                 </div>
@@ -173,5 +235,6 @@ export default function ProjectsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

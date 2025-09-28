@@ -117,7 +117,7 @@ export const projects: Project[] = [
     fullDescription: "BTChat is a peer-to-peer communication app that uses Bluetooth Low Energy and Multipeer Connectivity for messaging between nearby devices without requiring internet or cellular connectivity.",
     technologies: ["Swift", "SwiftUI", "CoreBluetooth"],
     category: "App Development",
-    status: "In-Progress",
+    status: "in-progress",
     images: [
       "/img/projects/sam/1.png",
     ],
