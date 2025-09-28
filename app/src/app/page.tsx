@@ -1,103 +1,172 @@
+'use client';
+
+import Link from "next/link";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { projects } from "../data/projects";
+
+const greetings = [
+  "Hello", // English
+  "Hola", // Spanish
+  "Bonjour", // French
+  "Hallo", // German
+  "Ciao", // Italian
+  "Olá", // Portuguese
+  "こんにちは", // Japanese
+  "안녕하세요", // Korean
+  "你好", // Chinese
+  "Привет", // Russian
+  "مرحبا", // Arabic
+  "नमस्ते", // Hindi
+];
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [currentGreeting, setCurrentGreeting] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const currentWord = greetings[currentGreeting];
+
+    if (isTyping) {
+      if (displayText.length < currentWord.length) {
+        const typingTimer = setTimeout(() => {
+          setDisplayText(currentWord.slice(0, displayText.length + 1));
+        }, 100);
+        return () => clearTimeout(typingTimer);
+      } else {
+        // Finished typing, wait then start erasing
+        const waitTimer = setTimeout(() => {
+          setIsTyping(false);
+        }, 1500);
+        return () => clearTimeout(waitTimer);
+      }
+    } else {
+      if (displayText.length > 0) {
+        const erasingTimer = setTimeout(() => {
+          setDisplayText(displayText.slice(0, -1));
+        }, 50);
+        return () => clearTimeout(erasingTimer);
+      } else {
+        // Finished erasing, move to next greeting
+        setCurrentGreeting((prev) => (prev + 1) % greetings.length);
+        setIsTyping(true);
+      }
+    }
+  }, [currentGreeting, displayText, isTyping]);
+
+  // Get featured projects (first 3)
+  const featuredProjects = projects.slice(0, 3);
+
+  return (
+    <div className="min-h-screen bg-black">
+      {/* Hero Section */}
+      <div className="min-h-[calc(100vh-200px)] flex flex-col items-center justify-center px-4 py-12">
+        <main className="text-center max-w-4xl mx-auto">
+          <div className="mb-8 animate-fade-in">
+            <span className="text-6xl md:text-8xl font-bold heading-gradient">
+              {displayText}
+              <span className="animate-pulse">|</span>
+            </span>
+          </div>
+          <p className="text-lg md:text-xl mb-12 text-gray-200 max-w-2xl mx-auto animate-slide-left animate-delay-300">
+            I&apos;m Kaine, a creative developer passionate about building innovative digital experiences.
+          </p>
+          <div className="flex justify-center items-center animate-slide-right animate-delay-500">
+            <Link
+              href="/projects"
+              className="btn-primary px-8 py-3 font-semibold"
+            >
+              View All Projects
+            </Link>
+          </div>
+        </main>
+      </div>
+
+      {/* Projects Preview Section */}
+      <div id="projects-preview" className="py-20 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 heading-gradient">
+              Featured Projects
+            </h2>
+            <p className="text-xl text-gray-200 max-w-2xl mx-auto">
+              A glimpse into my recent work and creative endeavors
+            </p>
+          </div>
+
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {featuredProjects.map((project, index) => (
+              <Link
+                key={project.id}
+                href={`/projects/${project.id}`}
+                className={`card hover-lift animate-scale-in`}
+                style={{ animationDelay: `${index * 200}ms` }}
+              >
+                <div className="relative h-48 bg-black">
+                  <Image
+                    src={project.thumbnailImage}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 bg-gray-900 text-white text-xs font-medium">
+                      {project.status === 'completed' ? 'Live' : project.status === 'in-progress' ? 'WIP' : 'Soon'}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="p-6">
+                  <div className="mb-2">
+                    <span className="text-sm text-gray-300 font-medium">
+                      {project.category}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-white mb-3 transition-colors">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-gray-200 mb-4 line-clamp-3">
+                    {project.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.slice(0, 2).map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-2 py-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-xs"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 2 && (
+                      <span className="px-2 py-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-xs">
+                        +{project.technologies.length - 2}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* View All Projects Button */}
+          <div className="text-center animate-fade-in animate-delay-500">
+            <Link
+              href="/projects"
+              className="btn-primary inline-flex items-center px-8 py-4 font-semibold"
+            >
+              View All Projects
+              <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
