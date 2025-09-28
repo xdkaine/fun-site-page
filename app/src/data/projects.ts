@@ -79,7 +79,9 @@ export const projects: Project[] = [
       "/img/projects/sam/7.png",
       "/img/projects/sam/8.png",
       "/img/projects/sam/9.png",
-      "/img/projects/sam/10.png"
+      "/img/projects/sam/10.png",
+      "/img/projects/sam/11.png",
+      "/img/projects/sam/12.png",
     ],
     thumbnailImage: "/img/projects/sam/1.png",
     links: {
