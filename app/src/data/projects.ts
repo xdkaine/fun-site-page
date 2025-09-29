@@ -110,13 +110,141 @@ export const projects: Project[] = [
     dateUpdated: "2025-3-22"
   },
 
-    {
+  {
     id: "btchat",
     title: "BTChat - Bluetooth Communication App",
-    description: "BTChat is a peer-to-peer communication app .",
-    fullDescription: "BTChat is a peer-to-peer communication app that uses Bluetooth Low Energy and Multipeer Connectivity for messaging between nearby devices without requiring internet or cellular connectivity.",
-    technologies: ["Swift", "SwiftUI", "CoreBluetooth"],
+    description: "BTChat is a peer-to-peer bluetooth communication app.",
+    fullDescription: "BTChat is a peer-to-peer bluetooth communication app that uses Bluetooth Low Energy and Multipeer Connectivity for messaging between nearby devices without requiring internet or cellular connectivity.",
+    technologies: ["Swift", "Bluetooth", "Apple SDK"],
     category: "App Development",
+    status: "in-progress",
+    images: [
+      "/img/projects/sam/1.png",
+    ],
+    thumbnailImage: "/img/projects/sam/1.png",
+    links: {
+      github: "https://github.com/xdkaine",
+      live: "https://sam.republicofgaming.xyz/v2"
+    },
+    features: [
+      "Real-time player banning and unbanning",
+      "Gamemode/Server Statistics and Analytics",
+      "Steam SSO Authentication",
+      "Detailed Logs and Audit Trails",
+      "Live Server Reports reported straight to Web Panel"
+    ],
+    challenges: [
+      "Implementing real-time statistics tracking by querying database",
+      "Secure authentication through Admin Pages via Steam SSO",
+      "Web Panel actions being reflected in-game",
+      "Design choices to make website user-friendly"
+    ],
+    dateCreated: "2023-11-11",
+    dateUpdated: "2025-3-22"
+  },
+  {
+    id: "canvas",
+    title: "Canvas - Collaborative Drawing App",
+    description: "Canvas is a collaborative drawing app that allows users to create and share artwork in real-time.",
+    fullDescription: "Canvas is a collaborative drawing app that allows users to create and share artwork in real-time. It features a variety of drawing tools, layers, and the ability to invite others to collaborate on a canvas.",
+    technologies: ["React", "Node.js", "WebSocket"],
+    category: "App Development",
+    status: "in-progress",
+    images: [
+      "/img/projects/sam/1.png",
+    ],
+    thumbnailImage: "/img/projects/sam/1.png",
+    links: {
+      github: "https://github.com/xdkaine",
+      live: "https://sam.republicofgaming.xyz/v2"
+    },
+    features: [
+      "Real-time player banning and unbanning",
+      "Gamemode/Server Statistics and Analytics",
+      "Steam SSO Authentication",
+      "Detailed Logs and Audit Trails",
+      "Live Server Reports reported straight to Web Panel"
+    ],
+    challenges: [
+      "Implementing real-time statistics tracking by querying database",
+      "Secure authentication through Admin Pages via Steam SSO",
+      "Web Panel actions being reflected in-game",
+      "Design choices to make website user-friendly"
+    ],
+    dateCreated: "2023-11-11",
+    dateUpdated: "2025-3-22"
+  },
+  {
+    id: "northern-lights",
+    title: "Northern Lights - On-prem Surveillance Application",
+    description: "Northern Lights is an real time surveilance application utilziing OpenCV with RTSP/RTMP Streams.",
+    fullDescription: "Northern Lights is an application that allows users to monitor CCTV feeds using RTSP/RTMP protocols. It provides real-time monitoring, utilizing OpenCV for video processing.",
+    technologies: ["Swift", "AVFoundation ", "CoreLocation"],
+    category: "App Development",
+    status: "in-progress",
+    images: [
+      "/img/projects/sam/1.png",
+    ],
+    thumbnailImage: "/img/projects/sam/1.png",
+    links: {
+      github: "https://github.com/xdkaine",
+      live: "https://sam.republicofgaming.xyz/v2"
+    },
+    features: [
+      "Real-time player banning and unbanning",
+      "Gamemode/Server Statistics and Analytics",
+      "Steam SSO Authentication",
+      "Detailed Logs and Audit Trails",
+      "Live Server Reports reported straight to Web Panel"
+    ],
+    challenges: [
+      "Implementing real-time statistics tracking by querying database",
+      "Secure authentication through Admin Pages via Steam SSO",
+      "Web Panel actions being reflected in-game",
+      "Design choices to make website user-friendly"
+    ],
+    dateCreated: "2023-11-11",
+    dateUpdated: "2025-3-22"
+  },
+  {
+    id: "nephelion",
+    title: "Nephelion - Unified Front-end for Cloud Storage",
+    description: "Nephelion is a unified front-end for cloud storage services, providing a seamless user experience across multiple platforms.",
+    fullDescription: "Nephelion is an application that allows users to manage their cloud storage services from a single interface. It supports various cloud providers and offers features like file previews, sharing, and collaboration.",
+    technologies: ["React", "Node.js", "GraphQL", "TailwindCSS", "Vite"],
+    category: "Web Development",
+    status: "in-progress",
+    images: [
+      "/img/projects/sam/1.png",
+    ],
+    thumbnailImage: "/img/projects/sam/1.png",
+    links: {
+      github: "https://github.com/xdkaine",
+      live: "https://sam.republicofgaming.xyz/v2"
+    },
+    features: [
+      "Real-time player banning and unbanning",
+      "Gamemode/Server Statistics and Analytics",
+      "Steam SSO Authentication",
+      "Detailed Logs and Audit Trails",
+      "Live Server Reports reported straight to Web Panel"
+    ],
+    challenges: [
+      "Implementing real-time statistics tracking by querying database",
+      "Secure authentication through Admin Pages via Steam SSO",
+      "Web Panel actions being reflected in-game",
+      "Design choices to make website user-friendly"
+    ],
+    dateCreated: "2023-11-11",
+    dateUpdated: "2025-3-22"
+  },
+      {
+    id: "kaine-tools",
+    title: "kaine-tools - Developer Utilities",
+    description: "kaine.tools is a multifunctional web service designed to enhance user productivity with no advertisements.",
+    fullDescription: "kaine.tools is an application that provides various utilities for developers, including code snippets, API testing, and project management tools .",
+    technologies: ["React", "Node.js", "GraphQL", "TailwindCSS", "Vite"],
+    category: "Web Development",
     status: "in-progress",
     images: [
       "/img/projects/sam/1.png",

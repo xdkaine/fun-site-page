@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable experimental features for better performance
+  
+  devIndicators: false,
+  
   experimental: {
     optimizePackageImports: ['lucide-react', '@heroicons/react'],
   },
@@ -16,16 +18,27 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   
-  // Compression
   compress: true,
   
-  // PoweredByHeader
   poweredByHeader: false,
   
-  // Generate a sitemap
+  reactStrictMode: true,
+
   trailingSlash: false,
-  
-  // Headers for better caching and security
+  webpack: (config, { dev, isServer }) => {
+    if (dev && !isServer) {
+      const originalEntry = config.entry;
+      config.entry = async () => {
+        const entries = await originalEntry();
+        if (entries['main.js'] && !entries['main.js'].includes('./suppress-hydration-warnings.js')) {
+          entries['main.js'].unshift('./suppress-hydration-warnings.js');
+        }
+        return entries;
+      };
+    }
+    return config;
+  },
+
   async headers() {
     return [
       {
