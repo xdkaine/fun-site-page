@@ -119,12 +119,15 @@ export const projects: Project[] = [
     category: "App Development",
     status: "in-progress",
     images: [
-      "/img/projects/sam/1.png",
+        "/img/projects/btchat/1.png",
+        "/img/projects/btchat/2.png",
+        "/img/projects/btchat/3.png",
+        "/img/projects/btchat/4.png",
     ],
-    thumbnailImage: "/img/projects/sam/1.png",
+    thumbnailImage: "/img/projects/btchat/1.png",
     links: {
       github: "https://github.com/xdkaine",
-      live: "https://sam.republicofgaming.xyz/v2"
+      live: "https://btchat.republicofgaming.xyz"
     },
     features: [
       "Real-time player banning and unbanning",
