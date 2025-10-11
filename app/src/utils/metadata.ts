@@ -30,7 +30,7 @@ const defaultSEO = {
   title: "Kaine's Project Showcase - Full Stack Developer Portfolio",
   description: "Developer portfolio showcasing creative projects and digital experiences by Kaine. Explore web development, game modifications, and innovative digital solutions.",
   url: "https://showcase.republicofgaming.xyz",
-  image: "https://showcase.republicofgaming.xyz/og-image.png",
+  image: "https://showcase.republicofgaming.xyz/img/projects/rog/site.png",
   author: "Kaine",
   keywords: ["full stack developer", "web development", "portfolio", "react", "next.js", "typescript", "game development"]
 };

@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     description: "Explore my creative projects and digital experiences. Full-stack developer specializing in modern web technologies.",
     images: [
       {
-        url: '/og-image.png', // You'll need to add this image
+        url: '/img/projects/rog/site.png',
         width: 1200,
         height: 630,
         alt: "Kaine's Project Showcase",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Kaine's Project Showcase",
     description: "Explore my creative projects and digital experiences. Full-stack developer specializing in modern web technologies.",
-    images: ['/og-image.png'], // Same image as OG
+    images: ['/img/projects/rog/site.png'],
     creator: '@kaine', // Replace with actual Twitter handle
   },
   verification: {
